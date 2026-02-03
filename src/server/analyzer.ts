@@ -18,11 +18,20 @@ export async function analyzeModuleSize(
 }
 
 // check dependecy size before install
-export async function getRemotePackageSiZe(packageName: string) {
+export async function getRemotePackageSize(packageName: string) {
   try {
     const response = await fetch(
       `https://bundlephobia.com/api/size?package=${packageName}`,
     );
+
+    if (response.status === 404) {
+      throw new Error(`Package ${packageName} not found on npm`);
+    }
+    if (response.status === 500) {
+      throw new Error(
+        `Bundlephobia couldn't bundle ${packageName}. It might be a Node-only tool`,
+      );
+    }
     const data = await response.json();
 
     return {
