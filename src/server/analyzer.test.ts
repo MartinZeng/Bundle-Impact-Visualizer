@@ -1,6 +1,6 @@
 import { describe, it, expect } from 'vitest';
 import { analyzeModuleSize } from './analyzer';
-import { getRemotePackageSiZe } from './analyzer';
+import { getRemotePackageSize } from './analyzer';
 
 import * as fs from 'fs';
 import * as path from 'node:path';
@@ -32,5 +32,23 @@ describe('analyzeModuleSize', () => {
 
     expect(size).toBeLessThan(2068);
     expect(size).toBeGreaterThan(0);
+  });
+});
+
+describe('Remote Package Analyzer', () => {
+  it('should fetch real data for lodash package', async () => {
+    const data = await getRemotePackageSize('lodash');
+
+    expect(data).not.toBeNull();
+    expect(data?.name).toBe('lodash');
+
+    expect(data?.size).toBeGreaterThan(20000);
+
+    console.log('lodash size:', data.size);
+    console.log(data);
+  });
+  it('should return null for non-existant package', async () => {
+    const data = await getRemotePackageSize('jafogadfghafdpghapghadpgdafg');
+    expect(data).toBeNull();
   });
 });
