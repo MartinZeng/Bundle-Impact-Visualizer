@@ -1,5 +1,13 @@
 {
+  "name": "@biv/server",
+  "version": "1.0.0",
+  "description": "Bundle size analyzer for Vite",
+  "main": "",
+  "bin": {
+    "biv": "./cli.ts"
+  },
   "scripts": {
+    "check": "tsx cli.ts",
     "test": "vitest run",
     "test:watch": "vitest"
   },
