@@ -1,6 +1,6 @@
 import { describe, it, expect } from 'vitest';
-import { analyzeModuleSize } from './analyzer';
-import { getRemotePackageSize } from './analyzer';
+import { analyzeModuleSize } from './analyzer.js';
+import { getRemotePackageSize } from './analyzer.js';
 
 import * as fs from 'fs';
 import * as path from 'node:path';
@@ -44,7 +44,7 @@ describe('Remote Package Analyzer', () => {
 
     expect(data?.size).toBeGreaterThan(20000);
 
-    console.log('lodash size:', data.size);
+    console.log('lodash size:', data!.size);
     console.log(data);
   });
   it('should return null for non-existant package', async () => {

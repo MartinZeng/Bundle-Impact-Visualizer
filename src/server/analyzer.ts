@@ -1,10 +1,7 @@
 import * as esbuild from 'esbuild';
 
 // check dependency size after install
-export async function analyzeModuleSize(
-  code: string,
-  id: string,
-): Promise<Number> {
+export async function analyzeModuleSize(code: string, id: string) {
   try {
     const result = await esbuild.transform(code, {
       loader: 'ts',
@@ -31,6 +28,9 @@ export async function getRemotePackageSize(packageName: string) {
       throw new Error(
         `Bundlephobia couldn't bundle ${packageName}. It might be a Node-only tool`,
       );
+    }
+    if (!response.ok) {
+      throw new Error(`HTTP Error: ${response.status}`);
     }
     const data = await response.json();
 

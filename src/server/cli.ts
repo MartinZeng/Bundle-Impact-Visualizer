@@ -1,5 +1,5 @@
-#!/usr/bin/env npx tsx
-import { getRemotePackageSize } from './analyzer';
+#!/usr/bin/env node
+import { getRemotePackageSize } from './analyzer.js';
 import picocolors from 'picocolors';
 
 async function run() {

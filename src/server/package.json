@@ -1,24 +1,36 @@
 {
-  "name": "@biv/server",
-  "version": "1.0.0",
+  "name": "@mzeng062102/biv",
+  "version": "1.0.6",
   "description": "Bundle size analyzer for Vite",
-  "main": "",
+  "type": "module",
+  "main": "./dist/analyzer.js",
+  "types": "./dist/analyzer.d.ts",
+  "files": [
+    "dist",
+    "README.md",
+    "LICENSE"
+  ],
   "bin": {
-    "biv": "./cli.ts"
+    "biv": "./dist//cli.js"
   },
   "scripts": {
-    "check": "tsx cli.ts",
+    "build": "tsc",
+    "prepublishOnly": "npm run build",
     "test": "vitest run",
-    "test:watch": "vitest"
+    "check": "tsx ./cli.ts"
   },
+  "exclude": [
+    "**/*.test.ts"
+  ],
   "dependencies": {
     "byte-size": "^9.0.1",
     "esbuild": "^0.27.2",
-    "picocolors": "^1.1.1",
-    "vite": "^7.3.1",
-    "vitest": "^4.0.18"
+    "picocolors": "^1.1.1"
   },
   "devDependencies": {
-    "@types/node": "^25.1.0"
+    "@types/node": "^25.1.0",
+    "tsx": "^4.21.0",
+    "vite": "^7.3.1",
+    "vitest": "^4.0.18"
   }
 }
