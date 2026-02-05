@@ -1,5 +1,6 @@
 import * as fs from 'fs';
 import * as path from 'node:path';
+import picocolors from 'picocolors';
 
 export function readPackageJson(folderPath: string) {
   if (!folderPath) {
@@ -15,10 +16,10 @@ export function readPackageJson(folderPath: string) {
   const packageObj = JSON.parse(text);
 
   if (!packageObj.name) {
-    throw new Error('package.json is missing "name"');
+    packageObj.name = picocolors.red('No name found');
   }
   if (!packageObj.version) {
-    throw new Error('package.json is missing "version"');
+    packageObj.version = picocolors.red('No version found');
   }
 
   return packageObj;
