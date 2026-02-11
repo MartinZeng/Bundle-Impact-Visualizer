@@ -1,6 +1,6 @@
 {
   "name": "@mzeng062102/biv",
-  "version": "1.0.6",
+  "version": "1.0.9",
   "description": "Bundle size analyzer for Vite",
   "type": "module",
   "main": "./dist/analyzer.js",

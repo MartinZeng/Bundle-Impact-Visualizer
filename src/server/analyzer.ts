@@ -1,16 +1,23 @@
 import * as esbuild from 'esbuild';
 
 // check dependency size after install
-export async function analyzeModuleSize(code: string, id: string) {
+async function getNpmFallbackSize(packageName: string) {
   try {
-    const result = await esbuild.transform(code, {
-      loader: 'ts',
-      minify: true,
-    });
+    const response = await fetch(
+      `https://registry.npmjs.org/${packageName}/latest`,
+    );
 
-    return new TextEncoder().encode(result.code).length;
+    const data = await response.json();
+    return {
+      name: data.name,
+      size: data.dist?.unpackedSize || 0,
+      gzip: 0,
+      description: data.description,
+      isBundleable: false,
+      version: data.version,
+    };
   } catch (err) {
-    console.error(`[App] failed to analyze ${id}`, err);
+    return null;
   }
 }
 
@@ -39,9 +46,11 @@ export async function getRemotePackageSize(packageName: string) {
       size: data.size,
       gzip: data.gzip,
       description: data.description,
+      // check if package is bundleable
+      isBundleable: !!data.treeShakeable,
+      version: data.version,
     };
   } catch (err) {
-    console.error(`Could not fetch size for ${packageName}`);
-    return null;
+    return await getNpmFallbackSize(packageName);
   }
 }

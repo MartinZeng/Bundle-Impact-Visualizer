@@ -17,9 +17,9 @@ async function run() {
             const pkg = reader.readPackageJson(process.cwd());
             const deps = reader.extractDependencies(pkg);
             console.log(picocolors.green('\n✅ Local package.json loaded!'));
-            console.log(`${picocolors.bold('Name:')}    ${pkg.name}`);
-            console.log(`${picocolors.bold('Version:')} ${pkg.version}`);
-            console.log(`${picocolors.bold('Deps:')}    ${Object.keys(deps).length}\n`);
+            console.log(`${picocolors.bold('Name:')}     ${pkg.name}`);
+            console.log(`${picocolors.bold('Version:')}  ${pkg.version}`);
+            console.log(`${picocolors.bold('Packages:')} ${Object.keys(deps).length}\n`);
         }
         catch (err) {
             console.log(picocolors.red(`Local mode error: ${err.message}`));
@@ -30,6 +30,9 @@ async function run() {
     console.log(picocolors.cyan(`searching for ${packageName}`));
     const stats = await getRemotePackageSize(packageName);
     if (stats) {
+        if (!stats.isBundleable) {
+            console.log(picocolors.bgRed(picocolors.white(' WARNING ')), picocolors.red('This package is likely not bundleable (e.g., Node-only or CLI tool.)'));
+        }
         console.log(`\n${picocolors.bold(picocolors.green(stats.name))}`);
         console.log(`${picocolors.gray('---------------------')}`);
         console.log(`Minified: ${picocolors.yellow((stats.size / 1024).toFixed(2) + 'KB')}`);
