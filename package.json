@@ -2,6 +2,7 @@
   "dependencies": {
     "concurrently": "^9.2.1",
     "dotenv": "^17.2.3",
+    "node": "^25.6.1",
     "typescript": "^5.9.3"
   }
 }

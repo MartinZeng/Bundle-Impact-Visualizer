@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BiV - Bundle Impact Visualizer</title>
+    
+    <!-- Font -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Main CSS -->
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <!-- HERO SECTION -->
+    <section class="hero">
+        <div class="container">
+            <h1>BiV</h1>
+            <p class="subhead">the bundle impact visualizer.</p>
+        </div>
+    </section>
+
+    <main class="container">
+        <!-- INSTALL SECTION -->
+        <section class="install-section">
+            <h2>
+                <i class="fas fa-terminal"></i>
+                Install BiV
+            </h2>
+            <div class="code-snippet">
+                <code>
+                    <span class="prompt">$</span> npm i -g @mzeng062102/biv
+                </code>
+                <button class="copy-btn" onclick="copyToClipboard('npm i -g @mzeng062102/biv')">
+                    <i class="far fa-copy"></i>
+                </button>
+            </div>
+            <p class="install-note">
+                <i class="fas fa-check-circle"></i>
+                Paste this code snippet into your terminal and press enter.
+            </p>
+        </section>
+
+        <!-- WHAT CAN BIV DO SECTION -->
+        <section class="features">
+            <h3>What can BiV do?</h3>
+            
+            <div class="feature-grid">
+                <!-- Feature 1: Visualize Dependency Impact -->
+                <div class="feature-card">
+                    <div class="feature-image-placeholder">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <h4>Visualize Dependency Impact</h4>
+                    <p>See exactly how your dependencies affect bundle size across commits. Track changes and identify bloated packages instantly.</p>
+                    <div class="demo-terminal">
+                        <div class="terminal-header">
+                            <span class="terminal-dot red"></span>
+                            <span class="terminal-dot yellow"></span>
+                            <span class="terminal-dot green"></span>
+                            <span class="terminal-title">biv react</span>
+                        </div>
+                        <div class="terminal-body">
+                            <div><span class="command-prompt"></span> <span class="command">biv react</span></div>
+                            <div class="command-output">
+                                <span class="output-icon"></span> react@18.2.0<br>
+                                <span class="output-label">Bundle:</span> 142.3 kB<br>
+                                <span class="output-label">Gzipped:</span> 42.1 kB<br>
+                                <span class="output-badge">-12% vs previous</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Feature 2: Post-Build Reports -->
+                <div class="feature-card">
+                    <div class="feature-image-placeholder">
+                        <i class="fas fa-file-alt"></i>
+                    </div>
+                    <h4>Post-Build Reports</h4>
+                    <p>Automatically generate detailed reports showing size contributions after every build. Perfect for CI/CD pipelines and team reviews.</p>
+                    <div class="demo-terminal">
+                        <div class="terminal-header">
+                            <span class="terminal-dot red"></span>
+                            <span class="terminal-dot yellow"></span>
+                            <span class="terminal-dot green"></span>
+                            <span class="terminal-title">biv --local</span>
+                        </div>
+                        <div class="terminal-body">
+                            <div><span class="command-prompt"></span> <span class="command">biv --local</span></div>
+                            <div class="command-output">
+                                <span class="output-icon"></span> Total dependencies: 24<br>
+                                <span class="output-icon"></span> Largest: lodash (524 kB)<br>
+                                <span class="output-icon"></span> Report saved: biv-report.json<br>
+                                <span class="output-icon"></span> 3 packages updated
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Feature 3: Terminal Bundle Analysis -->
+                <div class="feature-card">
+                    <div class="feature-image-placeholder">
+                        <i class="fas fa-chart-pie"></i>
+                    </div>
+                    <h4>Terminal Bundle Analysis</h4>
+                    <p>Quick bundle size insights right in your terminal. No context switching, no extra tools needed. Just instant feedback.</p>
+                    <div class="demo-terminal">
+                        <div class="terminal-header">
+                            <span class="terminal-dot red"></span>
+                            <span class="terminal-dot yellow"></span>
+                            <span class="terminal-dot green"></span>
+                            <span class="terminal-title">biv express</span>
+                        </div>
+                        <div class="terminal-body">
+                            <div><span class="command-prompt"></span> <span class="command">biv express</span></div>
+                            <div class="command-output">
+                                <span class="output-icon"></span> express@4.18.2<br>
+                                <span class="output-label">Bundle:</span> 1.2 MB<br>
+                                <span class="output-label">Gzipped:</span> 345.2 kB<br>
+                                <span class="output-label">Dependencies:</span> 30<br>
+                                <span class="output-badge">popular</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- COMMANDS SECTION -->
+        <section class="commands">
+            <h3>
+                <i class="fas fa-code"></i>
+                Current Commands
+            </h3>
+
+            <!-- Command 1: Local Check -->
+            <div class="command-block">
+                <div class="command-header">
+                    <h4>Check local dependencies</h4>
+                    <span class="command-badge">local</span>
+                </div>
+                <div class="command-example">
+                    <code>biv --local</code>
+                </div>
+                <div class="command-output-example">
+                    <div class="output-line">
+                        <span class="output-arrow">→</span>
+                        <span class="output-text">Found 24 dependencies in package.json</span>
+                    </div>
+                    <div class="output-line">
+                        <span class="output-arrow">→</span>
+                        <span class="output-text">react@18.2.0, lodash@4.17.21, axios@1.6.0, ...</span>
+                    </div>
+                </div>
+                <p class="command-description">
+                    Returns the number of dependencies, their names, and versions from your <code>package.json</code> file.
+                </p>
+            </div>
+
+            <!-- Command 2: Package Analysis -->
+            <div class="command-block">
+                <div class="command-header">
+                    <h4>Analyze specific package</h4>
+                    <span class="command-badge popular">popular</span>
+                </div>
+                <div class="command-example">
+                    <code>biv [package_name]</code>
+                </div>
+                <div class="command-output-example">
+                    <div class="output-line">
+                        <span class="output-arrow">→</span>
+                        <span class="output-text">Fetching size data for react...</span>
+                    </div>
+                    <div class="output-line">
+                        <span class="output-arrow">→</span>
+                        <span class="output-text">Bundle: 142.3 kB | Gzipped: 42.1 kB</span>
+                    </div>
+                </div>
+                <p class="command-description">
+                    Returns bundled and gzipped file sizes for the specified package. Includes version info and dependency count.
+                </p>
+            </div>
+
+            <!-- Coming Soon -->
+            <div class="command-block coming-soon">
+                <div class="command-header">
+                    <h4>Compare commits</h4>
+                    <span class="command-badge">soon</span>
+                </div>
+                <div class="command-example">
+                    <code>biv --compare main..feature</code>
+                </div>
+                <p class="command-description">
+                    Compare bundle size impact between branches or commits. <span class="coming-soon-text">Coming in v2.0</span>
+                </p>
+            </div>
+        </section>
+
+        <!-- GET STARTED SECTION -->
+        <section class="get-started">
+            <div class="get-started-content">
+                <h3>Ready to visualize your bundle?</h3>
+                <p>Install BiV in one command and start analyzing your dependencies today.</p>
+                <div class="cta-buttons">
+                    <a href="#" class="btn btn-primary">
+                        <i class="fas fa-book"></i>
+                        Documentation
+                    </a>
+                    <a href="#" class="btn btn-secondary">
+                        <i class="fab fa-github"></i>
+                        GitHub
+                    </a>
+                    <a href="#" class="btn btn-outline">
+                        <i class="fas fa-cube"></i>
+                        npm
+                    </a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <i class="fas fa-cube"></i>
+                    <span>BiV</span>
+                </div>
+                <div class="footer-links">
+                    <a href="#">Documentation</a>
+                    <a href="#">GitHub</a>
+                    <a href="#">npm</a>
+                    <a href="#">Changelog</a>
+                </div>
+                <div class="footer-meta">
+                    <p>Made for developers who care about bundle size</p>
+                    <p class="copyright">© 2026 BiV - Bundle Impact Visualizer</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Copy to clipboard script -->
+    <script>
+        function copyToClipboard(text) {
+            navigator.clipboard.writeText(text).then(function() {
+                const btn = event.currentTarget;
+                const originalIcon = btn.innerHTML;
+                btn.innerHTML = '<i class="fas fa-check"></i>';
+                setTimeout(() => {
+                    btn.innerHTML = originalIcon;
+                }, 2000);
+            });
+        }
+    </script>
+</body>
+</html>
