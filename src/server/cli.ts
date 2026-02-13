@@ -1,5 +1,6 @@
 #!/usr/bin/env node
 import { getRemotePackageSize } from './analyzer.js';
+import { ALTERNATIVES } from './suggestions.js';
 import picocolors from 'picocolors';
 
 async function run() {
@@ -52,9 +53,16 @@ async function run() {
     }
     console.log(`\n${picocolors.bold(picocolors.green(stats.name))}`);
     console.log(`${picocolors.gray('---------------------')}`);
-    console.log(
-      `Minified: ${picocolors.yellow((stats.size / 1024).toFixed(2) + 'KB')}`,
-    );
+    if (stats.size > 1024) {
+      console.log(
+        `Minified: ${picocolors.yellow((stats.size / 1000000).toFixed(2) + 'MB')}`,
+      );
+    } else {
+      console.log(
+        `Minified: ${picocolors.yellow((stats.size / 1024).toFixed(2) + 'KB')}`,
+      );
+    }
+
     console.log(
       `Gzipped: ${picocolors.green((stats.gzip / 1024).toFixed(2) + 'KB')}`,
     );
