@@ -23,23 +23,39 @@ async function run() {
       const pkg = reader.readPackageJson(process.cwd());
 
       const deps = reader.extractDependencies(pkg);
-
-      console.log(picocolors.green('\n✅ Local package.json loaded!'));
-      console.log(`${picocolors.bold('Name:')}     ${pkg.name}`);
-      console.log(`${picocolors.bold('Version:')}  ${pkg.version}`);
+console.log('\n')
+       console.log(picocolors.gray('== ') +
+      //  picocolors.bold(picocolors.cyan('📦 B I V')) + 
+      // console.log(picocolors.white('') +
+       picocolors.bold(picocolors.cyan('📦Bundle Impact Visualizer')) + 
+      //  picocolors.white(''));
+      picocolors.gray(' =='));
+      // console.log(picocolors.gray('--------------------------------'))
+      // console.log('\n') 
       console.log(
-        `${picocolors.bold('Packages:')} ${Object.keys(deps).length}\n`,
-      );
+  picocolors.cyan('\n✅ Local ') + 
+  picocolors.yellow('{}') + 
+  picocolors.italic(picocolors.cyan('package.json')) + 
+  picocolors.cyan(' loaded!')
+);
+      console.log(`${picocolors.gray('================================')}\n`);
+      console.log(`${picocolors.magenta('Name:')}    ${pkg.name}`);
+      console.log(`${picocolors.gray('--------------------------------')}\n`);
+      console.log(`${picocolors.magenta('Version:')} ${pkg.version}`);
+      console.log(`${picocolors.gray('--------------------------------')}\n`);
+      console.log(`${picocolors.magenta('Packages:')} ${Object.keys(deps).length}`);
+      console.log(`${picocolors.gray('--------------------------------')}\n`)
     } catch (err: any) {
       console.log(picocolors.red(`Local mode error: ${err.message}`));
       process.exit(1);
     }
     return;
   }
-
-  console.log(picocolors.cyan(`searching for ${packageName}`));
-
-  const stats = await getRemotePackageSize(packageName);
+   console.log(`\n🔎 ${picocolors.cyan(picocolors.bold('Searching for'))}...`);
+console.log(`${picocolors.gray('===================')}`);
+  
+   
+const stats = await getRemotePackageSize(packageName);
 
   if (stats) {
     if (!stats.isBundleable) {
@@ -50,15 +66,18 @@ async function run() {
         ),
       );
     }
-    console.log(`\n${picocolors.bold(picocolors.green(stats.name))}`);
-    console.log(`${picocolors.gray('---------------------')}`);
+    console.log(`\n${picocolors.bold(picocolors.magenta(stats.name.charAt(0).toUpperCase() + stats.name.slice(1)))}`);
+
+    console.log(`${picocolors.gray('-------------------')}`);
+   
     console.log(
-      `Minified: ${picocolors.yellow((stats.size / 1024).toFixed(2) + 'KB')}`,
+      `Minified: ${picocolors.yellow((stats.size / 1024).toFixed(2) + 'KB\⬆')}`,
     );
+    console.log(`${picocolors.gray('-------------------')}`);
     console.log(
-      `Gzipped: ${picocolors.green((stats.gzip / 1024).toFixed(2) + 'KB')}`,
+      `Gzipped:  ${picocolors.green((stats.gzip / 1024).toFixed(2) +   'KB\⬇')}`,
     );
-    console.log(`${picocolors.gray('---------------------')}\n`);
+    console.log(`${picocolors.gray('+++++++++++++++++++')}\n`);
   } else {
     console.log(picocolors.red(`could not find package: ${packageName}`));
   }
