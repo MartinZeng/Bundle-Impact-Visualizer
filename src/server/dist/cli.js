@@ -102,7 +102,7 @@ async function run() {
     else {
         console.log(picocolors.red(`could not find package: ${packageName}`));
     }
-=======
+
 import { createColors } from 'picocolors';
 
 console.log('isTTY:', process.stdout.isTTY);
