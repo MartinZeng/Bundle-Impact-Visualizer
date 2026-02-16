@@ -23,25 +23,16 @@ async function run() {
       const pkg = reader.readPackageJson(process.cwd());
 
       const deps = reader.extractDependencies(pkg);
-console.log('\n')
-       console.log(picocolors.gray('== ') +
-      //  picocolors.bold(picocolors.cyan('📦 B I V')) + 
-      // console.log(picocolors.white('') +
-       picocolors.bold(picocolors.cyan('📦Bundle Impact Visualizer')) + 
-      //  picocolors.white(''));
-      picocolors.gray(' =='));
-      // console.log(picocolors.gray('--------------------------------'))
-      // console.log('\n') 
       console.log(
   picocolors.cyan('\n✅ Local ') + 
   picocolors.yellow('{}') + 
-  picocolors.italic(picocolors.cyan('package.json')) + 
+  picocolors.italic(picocolors.cyan(' package.json')) + 
   picocolors.cyan(' loaded!')
 );
       console.log(`${picocolors.gray('================================')}\n`);
-      console.log(`${picocolors.magenta('Name:')}    ${pkg.name}`);
+      console.log(`${picocolors.magenta('Name:')}     ${pkg.name}`);
       console.log(`${picocolors.gray('--------------------------------')}\n`);
-      console.log(`${picocolors.magenta('Version:')} ${pkg.version}`);
+      console.log(`${picocolors.magenta('Version:')}  ${pkg.version}`);
       console.log(`${picocolors.gray('--------------------------------')}\n`);
       console.log(`${picocolors.magenta('Packages:')} ${Object.keys(deps).length}`);
       console.log(`${picocolors.gray('--------------------------------')}\n`)
@@ -51,7 +42,8 @@ console.log('\n')
     }
     return;
   }
-   console.log(`\n🔎 ${picocolors.cyan(picocolors.bold('Searching for'))}...`);
+  //  console.log(`\n🔎 ${picocolors.cyan(picocolors.italic('Searching for'))}...`);
+    console.log(`\n🔎 ${picocolors.cyan('Searching for')}...`);
 console.log(`${picocolors.gray('===================')}`);
   
    
@@ -66,7 +58,7 @@ const stats = await getRemotePackageSize(packageName);
         ),
       );
     }
-    console.log(`\n${picocolors.bold(picocolors.magenta(stats.name.charAt(0).toUpperCase() + stats.name.slice(1)))}`);
+    console.log(`\n${picocolors.magenta(stats.name.charAt(0).toUpperCase() + stats.name.slice(1))}`);
 
     console.log(`${picocolors.gray('-------------------')}`);
    
