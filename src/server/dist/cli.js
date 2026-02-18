@@ -1,5 +1,6 @@
 #!/usr/bin/env node
 import { getRemotePackageSize } from './analyzer.js';
+import { ALTERNATIVES } from './suggestions.js';
 import picocolors from 'picocolors';
 async function run() {
     //argv[0] is node
@@ -34,6 +35,12 @@ async function run() {
             console.log(picocolors.bgRed(picocolors.white(' WARNING ')), picocolors.red('This package is likely not bundleable (e.g., Node-only or CLI tool.)'));
         }
         console.log(`\n${picocolors.bold(picocolors.green(stats.name))}`);
+        const suggestion = ALTERNATIVES[stats.name.toLowerCase()];
+        if (suggestion) {
+            console.log(picocolors.cyan('💡 Suggestion: ') +
+                `Consider using ${picocolors.bold(suggestion.replacement)}`);
+            console.log(picocolors.gray(`   Reason: ${suggestion.reason}\n`));
+        }
         console.log(`${picocolors.gray('---------------------')}`);
         if (stats.size > 1024) {
             console.log(`Minified: ${picocolors.yellow((stats.size / 1000000).toFixed(2) + 'MB')}`);
