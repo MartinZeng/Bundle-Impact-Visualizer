@@ -52,6 +52,16 @@ async function run() {
       );
     }
     console.log(`\n${picocolors.bold(picocolors.green(stats.name))}`);
+
+    const suggestion = ALTERNATIVES[stats.name.toLowerCase()];
+    if (suggestion) {
+      console.log(
+        picocolors.cyan('💡 Suggestion: ') +
+          `Consider using ${picocolors.bold(suggestion.replacement)}`,
+      );
+      console.log(picocolors.gray(`   Reason: ${suggestion.reason}\n`));
+    }
+
     console.log(`${picocolors.gray('---------------------')}`);
     if (stats.size > 1024) {
       console.log(
