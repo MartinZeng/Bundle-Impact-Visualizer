@@ -2,11 +2,10 @@
   "dependencies": {
     "concurrently": "^9.2.1",
     "dotenv": "^17.2.3",
-<<<<<<< HEAD
-    "node": "^25.6.1",
-=======
     "picocolors": "^1.1.1",
->>>>>>> dc141fe (Work in progress: partial CLI changes)
     "typescript": "^5.9.3"
+  },
+  "devDependencies": {
+    "tsx": "^4.21.0"
   }
 }

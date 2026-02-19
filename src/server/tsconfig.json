@@ -1,8 +1,22 @@
+// {
+//   "compilerOptions": {
+//     // "target": "ESNext",
+//     "module": "ESNext",
+//     "moduleResolution": "NodeNext",
+//     "outDir": "./dist",
+//     "rootDir": "./",
+//     "declaration": true,
+//     "skipLibCheck": true,
+//     "esModuleInterop": true,
+//     "strict": true
+//   },
+//   "include": ["cli.ts", "analyzer.ts"],
+//   "exclude": ["node_modules", "dist", "**/*.test.ts"]
+// }
 {
   "compilerOptions": {
-    "target": "ESNext",
-    "module": "NodeNext",
-    "moduleResolution": "NodeNext",
+    "module": "CommonJS",
+    "moduleResolution": "node",
     "outDir": "./dist",
     "rootDir": "./",
     "declaration": true,

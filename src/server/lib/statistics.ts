@@ -13,7 +13,7 @@ export interface Statistics {
 export type SizeDistribution = Record<string, number>;
 
 
-// 📊 Calculate Statistics
+// Calculate Statistics
 export function calculateStatistics(packages: PackageData[]): Statistics {
   const sizes = packages.map(pkg => pkg.size);
 
@@ -43,7 +43,7 @@ export function calculateStatistics(packages: PackageData[]): Statistics {
 }
 
 
-// 🚨 Detect Outliers
+// Detect Outliers
 export function detectOutliers(
   packages: PackageData[],
   mean: number
@@ -52,7 +52,7 @@ export function detectOutliers(
 }
 
 
-// 💡 Generate Insights
+//Generate Insights
 export function generateInsights(
   packages: PackageData[],
   stats: Statistics
@@ -68,19 +68,21 @@ export function generateInsights(
     if (cumulative >= stats.total * 0.75) break;
   }
 
-  return `Approximately 75% of total bundle size comes from ${count} packages.`;
+  return `Approximately 75% of total
+  bundle size comes from ${count} 
+  packages.`;
 }
 
 
-// 📈 Generate Size Distribution
+//  Generate Size Distribution
 export function generateSizeDistribution(
   packages: PackageData[]
 ): SizeDistribution {
   const buckets: SizeDistribution = {
-    "0-25kb": 0,
+    "0-25kb": 1,
     "25-50kb": 0,
-    "50-100kb": 0,
-    "100kb+": 0
+    "50-100kb": 2,
+    "100kb+": 3
   };
 
   packages.forEach(pkg => {
@@ -96,14 +98,25 @@ export function generateSizeDistribution(
 }
 
 
-// 🖥 Render ASCII Chart
-export function renderAsciiChart(distribution: SizeDistribution): void {
-  console.log("\nPackage Size Distribution:\n");
+// Render ASCII Chart
+// export function renderAsciiChart(distribution: SizeDistribution): void {
+//   console.log("\nPackage Size Distribution:\n");
 
+//   for (const [range, count] of Object.entries(distribution)) {
+//     const bar = "█".repeat(count);
+//     console.log(`${range.padEnd(10)} ${bar} (${count})`);
+//   }
+
+//   console.log("\n");
+// }
+
+
+export function renderAsciiChart(distribution: Record<string, number>) {
+  const maxCount = Math.max(...Object.values(distribution), 1);
+  
   for (const [range, count] of Object.entries(distribution)) {
-    const bar = "█".repeat(count);
-    console.log(`${range.padEnd(10)} ${bar} (${count})`);
+    const barLength = Math.round((count / maxCount) * 10);
+    const bar = '█'.repeat(barLength);
+    console.log(`${range.padEnd(10)} ${bar} ${count > 0 ? '(' + count + ')' : '(0)'}`);
   }
-
-  console.log("\n");
 }
