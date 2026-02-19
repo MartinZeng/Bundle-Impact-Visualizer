@@ -1,26 +1,37 @@
-// 2
+// 2 - The shorter cli from the statistics.ts file. This will only include the name, package, version 
+// and a graph with percentages from the npx tsx cli --local command
 // import { getRemotePackageSize } from './analyzer.js';
 // import { generateSizeDistribution } from './lib/statistics.js';
 // import picocolors from 'picocolors';
 
-// // Custom styled chart function
+// // custom chart function
 // function renderStyledChart(distribution: Record<string, number>) {
 //   const maxCount = Math.max(...Object.values(distribution), 1);
-// //  console.log(`${picocolors.gray('--------------------------------')}`);
+//   const total = Object.values(distribution).reduce((sum, val) => sum + val, 0);
+
+
 //   console.log(`${picocolors.cyan('Package Size Distribution')}`);
 //   console.log(`${picocolors.white('--------------------------------')}\n`);
+  
 //   // Define the categories in the order you want
-//   const categories = ['0-25kb', '25-50kb', '50-100kb', '100kb+'];
+// const categories = ['0-25kb', '25-50kb', '50-100kb', '100kb+'];
   
 //   for (const category of categories) {
 
 //     const count = distribution[category] || 0;
-//     const barLength = Math.round((count / maxCount) * 20);
+//     const barLength = Math.round((count / maxCount) * 20);//with this line the bars in the graph are scaled relative to maxCount- you get a relative comparison and the rendered bars are larger 
+//     // const barLength = Math.round((count / total) * 20);//with this line the bars represent the percentage of the total/they are true percentage bars. the rendered bars are smaller and take up less visual space. This line and the one above that's uncommented out both work and have the numbers shown as percentages ex. 20%. 
+
 //     const bar = picocolors.blue('█'.repeat(barLength));
-//     const countDisplay = count > 0 
-//       ? picocolors.yellow(`(${count})`) 
-//       : picocolors.gray('(0)');
     
+    
+// const percentage = total > 0 ? ((count / total) * 100).toFixed(1) : '0.0';
+
+// const countDisplay = count > 0
+//   ? picocolors.cyan(`${percentage}%`)
+//   : picocolors.gray('(0.0%)');
+
+
 //     console.log(`${category.padEnd(10)} ${bar} ${countDisplay}`);
 //   }
 //   console.log('');
@@ -34,7 +45,7 @@
 //     process.exit(1);
 //   }
 
-//   // Local mode
+
 //   if (packageName === '--local') {
 //     try {
 //       const reader = await import('./package-json-reader.js');
@@ -62,7 +73,7 @@
 //         version,
 //       }));
 
-//       // Fetch sizes silently (no output)
+//       // fetch sizes 
 //       const packageSizes = [];
 //       for (const [index, pkg] of packageList.entries()) {
 //         const sizeInfo = await getRemotePackageSize(pkg.name);
@@ -77,11 +88,11 @@
 //       }
 
 //       if (packageSizes.length > 0) {
-//         // Size distribution chart
-//         // console.log(`${picocolors.cyan('📊 Package Size Distribution:')}`);
+//         // size distribution chart
+       
 //         const distribution = generateSizeDistribution(packageSizes);
         
-//         // Use the styled chart
+//        //styled chart
 //         renderStyledChart(distribution);
         
 //         console.log(`${picocolors.gray('================================')}`);
@@ -100,9 +111,9 @@
 //     return;
 //   }
 
-//   // Single package mode
+//   // single package mode
 //   console.log(`\n🔎 ${picocolors.cyan('Searching for')}...`);
-//   console.log(`${picocolors.gray('===================')}`);
+//   console.log(`${picocolors.white('---------------------')}`);
   
 //   const stats = await getRemotePackageSize(packageName);
 
@@ -116,16 +127,18 @@
 //       );
 //     }
 //     console.log(`\n${picocolors.magenta(stats.name.charAt(0).toUpperCase() + stats.name.slice(1))}`);
-//     console.log(`${picocolors.gray('-------------------')}`);
-   
-//     console.log(
-//       `Minified: ${picocolors.yellow((stats.size / 1024).toFixed(2) + 'KB')}`,
+//     console.log(`${picocolors.white('---------------------')}`);
+
+// console.log(
+//     `${picocolors.blue('Minified')}: ${picocolors.yellow((stats.size / 1024).toFixed(2) + 'KB\⬆')}`
 //     );
-//     console.log(`${picocolors.gray('-------------------')}`);
+//     console.log(`${picocolors.white('---------------------')}`);
 //     console.log(
-//       `Gzipped:  ${picocolors.green((stats.gzip / 1024).toFixed(2) + 'KB')}`,
+//       `${picocolors.blue( 'Gzipped')}:  ${picocolors.green((stats.gzip / 1024).toFixed(2) + 'KB\⬇')}`,
 //     );
-//     console.log(`${picocolors.gray('+++++++++++++++++++')}\n`);
+
+    
+//     console.log(`${picocolors.white('---------------------')}\n`);
 //   } else {
 //     console.log(picocolors.red(`could not find package: ${packageName}`));
 //   }
@@ -181,16 +194,13 @@ function renderStyledChart(distribution: Record<string, number>) {
 
 
    const label = picocolors.white(category.padEnd(labelWidth));
-   // const countText = picocolors.yellow(
-   //   `(${count})`.padStart(countWidth)
-   // );
+   
    const percentText = picocolors.cyan(
      `${Math.round(percentage * 100)}%`.padStart(percentWidth)
    );
 
 
- //   console.log(`${label} ${filledBar}${emptyBar} ${countText} ${percentText}`);
- // }
+ 
 console.log(`${label} ${filledBar}${emptyBar} ${percentText}`);
  }
  console.log(picocolors.gray('...............................'));
@@ -209,7 +219,7 @@ async function run() {
  }
 
 
- // Local mode
+ // local mode
  if (packageName === '--local') {
    try {
      const reader = await import('./package-json-reader.js');
@@ -224,20 +234,19 @@ async function run() {
        picocolors.bold(picocolors.cyan(' package.json')) +
        picocolors.cyan(' loaded') + picocolors.yellow('!')
      );
-     console.log(`${picocolors.white('================================')}\n`);
+     console.log(`${picocolors.white('--------------------------------')}\n`);
     
      // Show actual package name and version from package.json
      console.log(`${picocolors.magenta('Name')}${picocolors.cyan(':')}    ${picocolors.blue(pkg.name)}`);
      console.log(`${picocolors.white('--------------------------------')}\n`);
      console.log(`${picocolors.magenta('Version')}${picocolors.cyan(':')} ${picocolors.blue(pkg.version)}`);
      console.log(`${picocolors.white('--------------------------------')}\n`);
-     console.log(`${picocolors.magenta('Packages')}${picocolors.cyan(':')}${picocolors.blue(Object.keys(deps).length)}`);
-     console.log(`${picocolors.white('================================')}`);
+     console.log(`${picocolors.magenta('Packages')}${picocolors.cyan(':')} ${picocolors.blue(Object.keys(deps).length)}`);
+     console.log(`${picocolors.gray('---------------------------------')}`);
 
 
      // Show the list of dependencies with versions
-    //  console.log(`${picocolors.gray('..............................')}`);
-      console.log('\n');
+    
      console.log(`${picocolors.cyan('📦 Dependencies')}`);
      console.log(`${picocolors.white('--------------------------------')}\n`);
       
@@ -253,11 +262,11 @@ async function run() {
      console.log(`${picocolors.gray('--------------------------------')}`);
 
 
-     // Show fetching indicator
+     // show fetching indicator
      console.log(`${picocolors.cyan('📈 Analyzing package sizes...')}`);
     console.log(`${picocolors.white('--------------------------------')}\n`);
 
-     // Fetch sizes for all dependencies with progress indicator
+     // fetch sizes for all dependencies with progress indicator
      const packageSizes = [];
      for (const [index, pkg] of packageList.entries()) {
        process.stdout.write(`  ${picocolors.gray(`[${index + 1}/${packageList.length}]`)} ${pkg.name}... `);
@@ -317,7 +326,7 @@ async function run() {
         renderStyledChart(distribution);
       
        console.log(`${picocolors.white('--------------------------------')}`);
-       // console.log(`${picocolors.green(`✅ Analyzed ${packageSizes.length} packages successfully`)}`);
+      
        if (packageSizes.length < packageList.length) {
          console.log(picocolors.yellow(`⚠️  Could not fetch sizes for ${packageList.length - packageSizes.length} packages`));
        }
@@ -336,7 +345,7 @@ async function run() {
 
  // Single package mode
  console.log(`\n🔎 ${picocolors.cyan('Searching for')}...`);
- console.log(`${picocolors.gray('===================')}`);
+ console.log(`${picocolors.white('---------------------')}`);
   const stats = await getRemotePackageSize(packageName);
 
 
@@ -350,7 +359,7 @@ async function run() {
      );
    }
    console.log(`\n${picocolors.magenta(stats.name.charAt(0).toUpperCase() + stats.name.slice(1))}`);
-   console.log(`${picocolors.gray('-------------------')}`);
+   console.log(`${picocolors.white('---------------------')}`);
  
    console.log(
     `${picocolors.blue('Minified')}: ${picocolors.yellow((stats.size / 1024).toFixed(2) + 'KB\⬆')}`
@@ -361,7 +370,7 @@ async function run() {
     );
    
    
-   console.log(`${picocolors.gray('--------------------------------')}\n`);
+   console.log(`${picocolors.white('---------------------')}\n`);
  } else {
    console.log(picocolors.red(`could not find package: ${packageName}`));
  }
