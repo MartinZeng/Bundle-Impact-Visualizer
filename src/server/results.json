@@ -1,0 +1,23 @@
+[
+  {
+    "rank": 1,
+    "name": "esbuild",
+    "version": "N/A",
+    "rawSize": 135307,
+    "formattedSize": "132.14 KB"
+  },
+  {
+    "rank": 2,
+    "name": "byte-size",
+    "version": "N/A",
+    "rawSize": 32452,
+    "formattedSize": "31.69 KB"
+  },
+  {
+    "rank": 3,
+    "name": "picocolors",
+    "version": "N/A",
+    "rawSize": 6373,
+    "formattedSize": "6.22 KB"
+  }
+]
