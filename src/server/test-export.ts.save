@@ -1,0 +1,13 @@
+import { exportToJson, exportToCsv } from './export-manager'
+
+const data = [
+  { name: 'lodash', size: 5000, rank: 1 },
+  { name: 'axios', size: 3000, rank: 2 },
+  { name: 'weird,package', size: 10, rank: 3, note: 'has "quotes"' },
+]
+
+exportToJson(data, './output.json')
+exportToCsv(data, './output.csv')
+
+console.log('Export complete')
+
