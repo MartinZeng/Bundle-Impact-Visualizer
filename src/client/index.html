@@ -185,6 +185,83 @@
                 </p>
             </div>
 
+                <!-- NEW: Command 3: Package Info -->
+    <div class="command-block">
+        <div class="command-header">
+            <h4>Get package information</h4>
+            <span class="command-badge">info</span>
+        </div>
+        <div class="command-example">
+            <code>biv info &lt;package&gt;</code>
+        </div>
+        <div class="command-output-example">
+            <div class="output-line">
+                <span class="output-arrow">→</span>
+                <span class="output-text">Package: react</span>
+            </div>
+            <div class="output-line">
+                <span class="output-arrow">→</span>
+                <span class="output-text">Current version: 18.2.0</span>
+            </div>
+            <div class="output-line">
+                <span class="output-arrow">→</span>
+                <span class="output-text">Last updated: 2024-06-14</span>
+            </div>
+            <div class="output-line">
+                <span class="output-arrow">→</span>
+                <span class="output-text">Description: React is a JavaScript library for building user interfaces</span>
+            </div>
+        </div>
+        <p class="command-description">
+            Displays detailed information about a specific package including current version, last updated date, and description.
+        </p>
+    </div>
+
+    <!-- Command 4: Top Dependencies with Export -->
+    <div class="command-block">
+        <div class="command-header">
+            <h4>Show top dependencies</h4>
+            <span class="command-badge">analysis</span>
+        </div>
+        <div class="command-example">
+            <code>biv top [n]</code>
+        </div>
+        <div class="command-output-example">
+            <div class="output-line">
+                <span class="output-arrow">→</span>
+                <span class="output-text">Top 5 dependencies by size:</span>
+            </div>
+            <div class="output-line">
+                <span class="output-arrow">→</span>
+                <span class="output-text">1. lodash: 524.0 kB</span>
+            </div>
+            <div class="output-line">
+                <span class="output-arrow">→</span>
+                <span class="output-text">2. react: 142.3 kB</span>
+            </div>
+            <div class="output-line">
+                <span class="output-arrow">→</span>
+                <span class="output-text">3. axios: 32.0 kB</span>
+            </div>
+        </div>
+        <div class="command-example" style="margin-top: 12px;">
+            <code>biv top 5 --json summary.json</code>
+        </div>
+        <div class="command-example">
+            <code>biv top 10 --csv report.csv</code>
+        </div>
+        <div class="command-output-example">
+            <div class="output-line">
+                <span class="output-arrow">→</span>
+                <span class="output-text">Summary file created: summary.json</span>
+            </div>
+        </div>
+        <p class="command-description">
+            Displays the top n dependencies by size. Use <code>--json</code> or <code>--csv</code> followed by a filename to export the results to a file in the current directory.
+        </p>
+    </div>
+</section>
+
             <!-- Coming Soon -->
             <div class="command-block coming-soon">
                 <div class="command-header">
