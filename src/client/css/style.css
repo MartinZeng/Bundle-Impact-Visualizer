@@ -453,6 +453,26 @@ h1, h2, h3, h4, h5, h6 {
     font-size: 15px;
 }
 
+.command-example + .command-example {
+    margin-top: 8px;
+}
+
+.command-example code {
+    background: rgba(129, 230, 217, 0.1);
+    padding: 2px 6px;
+    border-radius: 4px;
+}
+
+.command-badge.info {
+    background: #4299e1;
+    color: white;
+}
+
+.command-badge.analysis {
+    background: #9f7aea;
+    color: white;
+}
+
 .coming-soon {
     opacity: 0.9;
     background: linear-gradient(135deg, var(--white), var(--silver-light));
